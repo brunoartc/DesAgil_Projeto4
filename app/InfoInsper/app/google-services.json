@@ -1,0 +1,73 @@
+{
+  "project_info": {
+    "project_number": "429335022661",
+    "firebase_url": "https://infoinsper.firebaseio.com",
+    "project_id": "infoinsper",
+    "storage_bucket": "infoinsper.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:429335022661:android:490e39291d977f62",
+        "android_client_info": {
+          "package_name": "com.br.insper.infoinsper"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "429335022661-v5nrgr32hu2ppresvajm97k5kc4j7ir5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC_7Nk4MjYnVOT2SMBY2vkz0Xm1g0jzM-0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:429335022661:android:f1288051c1c25a3c",
+        "android_client_info": {
+          "package_name": "com.br.insper.miboard"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "429335022661-v5nrgr32hu2ppresvajm97k5kc4j7ir5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC_7Nk4MjYnVOT2SMBY2vkz0Xm1g0jzM-0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -12,6 +12,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 
@@ -29,6 +30,11 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
         mDatabase = FirebaseDatabase.getInstance().getReference();
         nome = (EditText) findViewById(R.id.editText);
         email = (EditText) findViewById(R.id.editTextEmail);
@@ -36,11 +42,14 @@ public class MainActivity extends AppCompatActivity
         semestre = (Spinner) findViewById(R.id.spinner_semestre);
         motivo = (Spinner) findViewById(R.id.spinner_assunto);
 
+        String[] cursoContent = new String[] {
+                "Eng Comp", "Eng B", "Eng A", "Eco T", "Adm C"
+        };
 
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_item, cursoContent);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        semestre.setAdapter(adapter);
 
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);

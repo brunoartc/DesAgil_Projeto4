@@ -24,7 +24,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/Insper_positivo" />
+        app:srcCompat="@drawable/insper" />
 
     <EditText
         android:id="@+id/editText"
@@ -120,12 +120,22 @@
     <Spinner
         android:id="@+id/spinner_assunto"
         android:layout_width="0dp"
-        android:layout_height="29"
+        android:layout_height="29dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/spinner_curso"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/spinner_curso"
         app:layout_constraintTop_toBottomOf="@+id/textView4"
         app:layout_constraintVertical_bias="0.0" />
+
+    <EditText
+        android:id="@+id/editTextEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="email"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="448dp" />
 
 </android.support.constraint.ConstraintLayout>

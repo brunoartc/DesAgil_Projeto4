@@ -12,6 +12,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.EditText;
+import android.widget.Spinner;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -19,20 +21,33 @@ import com.google.firebase.database.FirebaseDatabase;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     private DatabaseReference mDatabase;
+    private EditText nome;
+    private EditText email;
+    Spinner curso;
+    Spinner semestre;
+    Spinner motivo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         mDatabase = FirebaseDatabase.getInstance().getReference();
+        nome = (EditText)findViewById(R.id.editText);
+        email = (EditText)findViewById(R.id.editTextEmail);
+        curso = (Spinner)findViewById(R.id.spinner_curso);
+        semestre = (Spinner)findViewById(R.id.spinner_semestre);
+        motivo = (Spinner)findViewById(R.id.spinner_assunto);
+
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                writeNewUser("sefude","caralho@caralhudo.com","eng comp","sefude");
+                writeNewStudent(nome.toString(), email.toString(),curso.toString(),semestre.toString(), motivo.toString());
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
@@ -49,11 +64,9 @@ public class MainActivity extends AppCompatActivity
     }
 
 
-    private void writeNewUser(String name, String email, String group, String issue) {
-        Form user = new Form(name, email, group, issue);
-
+    private void writeNewStudent(String nome, String email, String curso, String semestre, String motivo) {
+        Form user = new Form(nome, email, curso, semestre, motivo);
         mDatabase.child("new").setValue(user);
-
 
     }
 

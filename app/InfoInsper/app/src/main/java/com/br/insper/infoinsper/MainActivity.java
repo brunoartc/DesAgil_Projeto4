@@ -19,6 +19,8 @@ import android.widget.Spinner;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.Calendar;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     private DatabaseReference mDatabase;
@@ -41,7 +43,6 @@ public class MainActivity extends AppCompatActivity
         curso = (Spinner) findViewById(R.id.spinner_curso);
         semestre = (Spinner) findViewById(R.id.spinner_semestre);
         motivo = (Spinner) findViewById(R.id.spinner_assunto);
-        String oioi = motivo.getSelectedItem().toString();
 
         String[] cursoContent = new String[] {
                 "Eng Comp", "Eng B", "Eng A", "Eco T", "Adm C"
@@ -59,7 +60,7 @@ public class MainActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                writeNewStudent(nome.toString(), email.toString(), curso.toString(), semestre.getSelectedItem().toString(), motivo.getSelectedItem().toString());
+                writeNewStudent(nome.getText().toString(), email.getText().toString(), curso.getSelectedItem().toString(), semestre.getSelectedItem().toString(), motivo.getSelectedItem().toString());
                 Snackbar.make(view, "Enviado", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
@@ -77,8 +78,8 @@ public class MainActivity extends AppCompatActivity
 
 
     private void writeNewStudent(String nome, String email, String curso, String semestre, String motivo) {
-        Form user = new Form(nome, email, curso, semestre, motivo);
-        mDatabase.child("new").setValue(user);
+        Form user = new Form(nome, email, curso, semestre, motivo, Calendar.getInstance().getTime().toString());
+        mDatabase.child("new/"+Calendar.getInstance().getTime().toString()).setValue(user);
 
     }
 

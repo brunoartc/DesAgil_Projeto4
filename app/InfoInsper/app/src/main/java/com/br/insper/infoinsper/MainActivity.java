@@ -41,6 +41,7 @@ public class MainActivity extends AppCompatActivity
         curso = (Spinner) findViewById(R.id.spinner_curso);
         semestre = (Spinner) findViewById(R.id.spinner_semestre);
         motivo = (Spinner) findViewById(R.id.spinner_assunto);
+        String oioi = motivo.getSelectedItem().toString();
 
         String[] cursoContent = new String[] {
                 "Eng Comp", "Eng B", "Eng A", "Eco T", "Adm C"
@@ -50,13 +51,15 @@ public class MainActivity extends AppCompatActivity
                 android.R.layout.simple_spinner_item, cursoContent);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         semestre.setAdapter(adapter);
+        motivo.setAdapter(adapter);
+        curso.setAdapter(adapter);
 
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                writeNewStudent(nome.toString(), email.toString(), curso.toString(), semestre.toString(), motivo.toString());
+                writeNewStudent(nome.toString(), email.toString(), curso.toString(), semestre.getSelectedItem().toString(), motivo.getSelectedItem().toString());
                 Snackbar.make(view, "Enviado", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }

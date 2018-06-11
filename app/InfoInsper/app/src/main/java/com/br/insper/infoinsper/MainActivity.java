@@ -39,28 +39,49 @@ public class MainActivity extends AppCompatActivity
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
         nome = (EditText) findViewById(R.id.editText);
-        email = (EditText) findViewById(R.id.editTextEmail);
+        email = (EditText) findViewById(R.id.editText);
         curso = (Spinner) findViewById(R.id.spinner_curso);
         semestre = (Spinner) findViewById(R.id.spinner_semestre);
         motivo = (Spinner) findViewById(R.id.spinner_assunto);
-
-        String[] cursoContent = new String[] {
-                "Eng Comp", "Eng B", "Eng A", "Eco T", "Adm C"
+        String[] cursoContent = new String[] { "Selecione",
+                "Administração", "Economia","Engenharia da Computação","Engenharia Mecânica","Engenharia Mecatrônica",
+                "Dupla titulação","APF","Certificates","Doutorado","LLM","MBA","Mestrado"
+        };
+        String[] semestreContent = new String[] { "Selecione",
+                "1º semestre","2º semestre","3º semestre","4º semestre","5º semestre",
+                "6º semestre","7º semestre","8º semestre","9º semestre","10º semestre",
+        };
+        String[] motivoContent = new String[] { "Selecione",
+                "Acadêmico","Atendimento a familiares","Carreiras",
+                "Intercâmbio","Organizações estudantis","Orientação de estudos",
+                "Programa de bolsas","Regime disciplinar","Socioemocional","Reclamações",
+                "Outros"
         };
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+        ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_item, cursoContent);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        semestre.setAdapter(adapter);
-        motivo.setAdapter(adapter);
-        curso.setAdapter(adapter);
+        
+        ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_item, semestreContent);
+
+        ArrayAdapter<String> adapter3 = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_item, motivoContent);
+
+        adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        adapter3.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        curso.setAdapter(adapter2);
+        semestre.setAdapter(adapter1);
+        motivo.setAdapter(adapter3);
+
 
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                writeNewStudent(nome.getText().toString(), email.getText().toString(), curso.getSelectedItem().toString(), semestre.getSelectedItem().toString(), motivo.getSelectedItem().toString());
+                writeNewStudent(nome.getText().toString(), email.getText().toString()+"@alinsper.edu.br", curso.getSelectedItem().toString(), semestre.getSelectedItem().toString(), motivo.getSelectedItem().toString());
                 Snackbar.make(view, "Enviado", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }

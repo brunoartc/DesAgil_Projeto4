@@ -6,7 +6,7 @@ var bodyParser = require('body-parser')
 app.use( bodyParser.json() );       // to support JSON-encoded bodies
 app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
   extended: true
-})); 
+}));
 
 var admin = require("firebase-admin");
 
@@ -17,37 +17,38 @@ admin.initializeApp({
   databaseURL: "https://infoinsper.firebaseio.com"
 });
 
-tags = ""
+obagulho = ""
 
 
 function j2csv(snap){
 	exportt = ""
-	exportt += ('tempo' + "," + 'email' + "," + 'semestre' + "," + 'curso' + "," + 'assunto' + "," + 'requerimento' + "," + 'tipo' + "\n")
+	exportt += ('tempo' + "," + 'email' + "," + 'curso' + "," + 'semestre' + "," + 'assunto' + "," + 'observacao' + "," + 'requerimento' + "," + 'funcionario' + "," + 'tipo' + "\n")
 	Object.keys(snap).forEach(function(value){
-		exportt += (snap[value]['tempo'] + "," + snap[value]['usuario'] + "," + snap[value]['semestre'] + "," + snap[value]['curso'] + "," + snap[value]['assunto'] + "," + snap[value]['requerimento'] + "," + snap[value]['tipo'] + "\n")
+		exportt += (snap[value]['tempo'] + "," + snap[value]['usuario'] + "," + snap[value]['semestre'] + "," + snap[value]['curso'] + "," + snap[value]['assunto'] + "," + snap[value]['obs'] + "," + snap[value]['requerimento'] + "," + snap[value]['funcionario'] + "," + snap[value]['tipo'] + "\n")
 	})
 	return exportt
-	
+
 }
 
 
 
 function formatar(snap){
-	tags = ""
-	
+	obagulho = ""
+
 	Object.keys(snap).forEach(function(value){
 		if (snap[value]['tempo']){
-			tags+=`
+			obagulho+=`
 				<div class="line">
 					<div class="card">
 						<div class="div_form">
 							<form class="form_card" action="/aluno" method="post">
-								Tempo: <input class="input_text" type="text" name="tempo" value="`+ snap[value]['tempo'] +`"><br>
+								Data e Hora: <input class="input_text" type="text" name="tempo" value="`+ snap[value]['tempo'] +`"><br>
 								Email: <input class="input_text" type="text" name="Email" value="`+ snap[value]['usuario'] +`"><br>
-								Curso e Semestre: <input class="input_text" type="text" name="Curso/Semestre" value="`+ snap[value]['curso'] + snap[value]['semestre'] +`"><br>
+								Semestre: <input class="input_text" type="text" name="Semestre" value="`+ snap[value]['curso'] +`"><br>
+                Curso: <input class="input_text" type="text" name="Curso" value="`+ snap[value]['semestre'] +`"><br>
 								Assunto: <input class="input_text" type="text" name="assunt" value="`+ snap[value]['motivo'] +`"><br>
 								<input type="submit" value="Atender">
-								
+
 							</form>
 						</div>
 					</div>
@@ -55,7 +56,7 @@ function formatar(snap){
 				`
 		}
 	});
-	
+
 }
 
 
@@ -77,6 +78,7 @@ app.post('/', function (req, res) {
 	fdata.assunto = req.body.assunto
 	fdata.semestre = req.body.semestre
 	fdata.curso = req.body.curso
+	fdata.obs = req.body.obs
 	fdata.funcionario = "Sergio"
 	if (req.body.requerimento!=undefined){
 		fdata.requerimento = req.body.requerimento
@@ -84,19 +86,19 @@ app.post('/', function (req, res) {
 		fdata.requerimento = "No"
 	}
 	fdata.tipo = req.body.tipo
-	
+
 	admin.database().ref('/old').child(fdata.tempo).set(fdata)
 	admin.database().ref('/new').child(fdata.tempo).set("{}")
-	
-	
-	
-	
+
+
+
+
 	res.send(`
 	<!DOCTYPE html>
 	<html lang="pt">
 		<style>
-			
-		</style>	
+
+		</style>
 		<head>
 			<link rel="stylesheet" type="text/css" href="/stylesheet.css">
 			<meta charset="utf-8">
@@ -126,22 +128,24 @@ app.post('/', function (req, res) {
 				<button onclick="document.getElementById('id01').style.display='block'"
 				id="logout">Logout</button>
 				<img src="/logo_multiinsper_colorido.png">
+				<button onclick="window.location.href = '/exportar'"
+				id="logout">Exportar</button>
 			</div>
 			<div id="demo">
 			</div>
-								
+
 		</body>
 	</html>
 	`)
-	
+
 });
 app.get('/', function (req, res) {
   res.send(`
 	<!DOCTYPE html>
 	<html lang="pt">
 		<style>
-			
-		</style>	
+
+		</style>
 		<head>
 			<link rel="stylesheet" type="text/css" href="/stylesheet.css">
 			<meta charset="utf-8">
@@ -170,17 +174,13 @@ app.get('/', function (req, res) {
 			<div class="header">
 				<button onclick="document.getElementById('id01').style.display='block'"
 				id="logout">Logout</button>
+				<button onclick="window.location.href = '/exportar'"
+				id="logout">Exportar</button>
 				<img src="/logo_multiinsper_colorido.png">
 			</div>
-			<div class="header">
-				<button onclick="window.location.href = '/exportar'"
-				id="logout">Logout</button>
-				<img src="/export_icon.png">
-			</div>
-			
 			<div id="demo">
 			</div>
-								
+
 		</body>
 	</html>
 	`)
@@ -204,19 +204,19 @@ app.post('/aluno', function (req, res) {
 					<h2>form</h2>
 
 					<form action="/" method="post">
-					  Tempo:<br>
+					  Data e Hora:<br>
 					  <input type="text" name="tempo" value="`+snapshot.val()['tempo']+`" readonly>
 					  <br>
-					  Usuario:<br>
+					  Email:<br>
 					  <input type="text" name="usr" value="`+snapshot.val()['usuario']+`" readonly>
 					  <br><br>
 					  Assunto:<br>
 					  <input type="text" name="assunto" value="`+snapshot.val()['motivo']+`" readonly>
 					  <br><br>
-					  Semestre:<br>
+					  Curso:<br>
 					  <input type="text" name="semestre" value="`+snapshot.val()['semestre']+`" readonly>
 					  <br><br>
-					  Curso:<br>
+					  Semestre:<br>
 					  <input type="text" name="curso" value="`+snapshot.val()['curso']+`" readonly>
 					  <br><br>
 					  Requerimento: <input class="input_text" type="checkbox" name="requerimento" value="yes">
@@ -224,10 +224,10 @@ app.post('/aluno', function (req, res) {
 					  Alumni: <input class="input_text" type="radio" name="tipo" value="alumini"></br>
 					  <br><br>
 					  Observacao:<br>
-					  <input type="text" name="obs" value="Mouse">
+					  <input type="text" name="obs" value="">
 					  <br><br>
 					  <input type="submit" value="Submit">
-					</form> 
+					</form>
 
 					</body>
 				</html>
@@ -242,7 +242,7 @@ app.get('/teste', function (req, res) {
 			formatar(snapshot.val())
 		}
 	});
-	res.send(tags)
+	res.send(obagulho)
 });
 
 app.listen(process.env.PORT || 4000, function () {

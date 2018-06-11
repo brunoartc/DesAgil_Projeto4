@@ -172,6 +172,12 @@ app.get('/', function (req, res) {
 				id="logout">Logout</button>
 				<img src="/logo_multiinsper_colorido.png">
 			</div>
+			<div class="header">
+				<button onclick="window.location.href = '/exportar'"
+				id="logout">Logout</button>
+				<img src="/export_icon.png">
+			</div>
+			
 			<div id="demo">
 			</div>
 								

@@ -22,7 +22,7 @@ tags = ""
 
 function j2csv(snap){
 	exportt = ""
-	exportt += ('tempo' + "," + 'usuario' + "," + 'semestre' + "," + 'curso' + "," + 'assunto' + "," + 'requerimento' + "," + 'tipo' + "\n")
+	exportt += ('tempo' + "," + 'email' + "," + 'semestre' + "," + 'curso' + "," + 'assunto' + "," + 'requerimento' + "," + 'tipo' + "\n")
 	Object.keys(snap).forEach(function(value){
 		exportt += (snap[value]['tempo'] + "," + snap[value]['usuario'] + "," + snap[value]['semestre'] + "," + snap[value]['curso'] + "," + snap[value]['assunto'] + "," + snap[value]['requerimento'] + "," + snap[value]['tipo'] + "\n")
 	})
@@ -43,7 +43,7 @@ function formatar(snap){
 						<div class="div_form">
 							<form class="form_card" action="/aluno" method="post">
 								Tempo: <input class="input_text" type="text" name="tempo" value="`+ snap[value]['tempo'] +`"><br>
-								Usuario: <input class="input_text" type="text" name="Email" value="`+ snap[value]['usuario'] +`"><br>
+								Email: <input class="input_text" type="text" name="Email" value="`+ snap[value]['usuario'] +`"><br>
 								Curso e Semestre: <input class="input_text" type="text" name="Curso/Semestre" value="`+ snap[value]['curso'] + snap[value]['semestre'] +`"><br>
 								Assunto: <input class="input_text" type="text" name="assunt" value="`+ snap[value]['motivo'] +`"><br>
 								<input type="submit" value="Atender">

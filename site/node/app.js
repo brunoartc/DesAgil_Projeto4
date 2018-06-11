@@ -20,6 +20,18 @@ admin.initializeApp({
 obagulho = ""
 
 
+function j2csv(snap){
+	exportt = ""
+	exportt += ('tempo' + "," + 'usuario' + "," + 'semestre' + "," + 'curso' + "," + 'assunto' + "," + 'requerimento' + "," + 'tipo' + "\n")
+	Object.keys(snap).forEach(function(value){
+		exportt += (snap[value]['tempo'] + "," + snap[value]['usuario'] + "," + snap[value]['semestre'] + "," + snap[value]['curso'] + "," + snap[value]['assunto'] + "," + snap[value]['requerimento'] + "," + snap[value]['tipo'] + "\n")
+	})
+	return exportt
+	
+}
+
+
+
 function formatar(snap){
 	obagulho = ""
 	
@@ -31,7 +43,7 @@ function formatar(snap){
 						<div class="div_form">
 							<form class="form_card" action="/aluno" method="post">
 								Tempo: <input class="input_text" type="text" name="tempo" value="`+ snap[value]['tempo'] +`"><br>
-								Usuario: <input class="input_text" type="text" name="Email" value="`+ snap[value]['usr'] +`"><br>
+								Usuario: <input class="input_text" type="text" name="Email" value="`+ snap[value]['usuario'] +`"><br>
 								Curso e Semestre: <input class="input_text" type="text" name="Curso/Semestre" value="`+ snap[value]['curso'] + snap[value]['semestre'] +`"><br>
 								Assunto: <input class="input_text" type="text" name="assunt" value="`+ snap[value]['motivo'] +`"><br>
 								<input type="submit" value="Atender">
@@ -48,7 +60,14 @@ function formatar(snap){
 
 
 
-
+app.get('/exportar', function (req, res) {
+	admin.database().ref().child("old").once('value', function(snapshot) {
+		if(snapshot.val()){
+			res.set({"Content-Disposition":"attachment; filename=\"export.csv\""});
+			res.send(j2csv(snapshot.val()))
+		}
+	});
+})
 
 var coisadedentro = "<input>"
 app.post('/', function (req, res) {
@@ -65,7 +84,6 @@ app.post('/', function (req, res) {
 		fdata.requerimento = "No"
 	}
 	fdata.tipo = req.body.tipo
-	console.log(fdata.semeste)
 	
 	admin.database().ref('/old').child(fdata.tempo).set(fdata)
 	admin.database().ref('/new').child(fdata.tempo).set("{}")
@@ -184,7 +202,7 @@ app.post('/aluno', function (req, res) {
 					  <input type="text" name="tempo" value="`+snapshot.val()['tempo']+`" readonly>
 					  <br>
 					  Usuario:<br>
-					  <input type="text" name="usr" value="`+snapshot.val()['usr']+`" readonly>
+					  <input type="text" name="usr" value="`+snapshot.val()['usuario']+`" readonly>
 					  <br><br>
 					  Assunto:<br>
 					  <input type="text" name="assunto" value="`+snapshot.val()['motivo']+`" readonly>

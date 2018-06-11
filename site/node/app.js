@@ -17,7 +17,7 @@ admin.initializeApp({
   databaseURL: "https://infoinsper.firebaseio.com"
 });
 
-obagulho = ""
+tags = ""
 
 
 function j2csv(snap){
@@ -33,11 +33,11 @@ function j2csv(snap){
 
 
 function formatar(snap){
-	obagulho = ""
+	tags = ""
 	
 	Object.keys(snap).forEach(function(value){
 		if (snap[value]['tempo']){
-			obagulho+=`
+			tags+=`
 				<div class="line">
 					<div class="card">
 						<div class="div_form">
@@ -236,7 +236,7 @@ app.get('/teste', function (req, res) {
 			formatar(snapshot.val())
 		}
 	});
-	res.send(obagulho)
+	res.send(tags)
 });
 
 app.listen(process.env.PORT || 4000, function () {

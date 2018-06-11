@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity  {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                writeNewStudent(nome.getText().toString(), email.getText().toString()+"@alinsper.edu.br", curso.getSelectedItem().toString(), semestre.getSelectedItem().toString(), motivo.getSelectedItem().toString());
+                writeNewStudent(nome.getText().toString(), email.getText().toString()+"@al.insper.edu.br", curso.getSelectedItem().toString(), semestre.getSelectedItem().toString(), motivo.getSelectedItem().toString());
                 Snackbar.make(view, "Enviado", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
                 nome.setText("");

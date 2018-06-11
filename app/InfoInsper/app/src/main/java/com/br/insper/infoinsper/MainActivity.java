@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity
 
         ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_item, cursoContent);
-        
+
         ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_item, semestreContent);
 

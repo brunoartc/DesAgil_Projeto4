@@ -46,7 +46,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="Login"
+        android:text="Nome de  usuário"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="@+id/editText"
         app:layout_constraintStart_toStartOf="@+id/editText"
@@ -127,15 +127,5 @@
         app:layout_constraintStart_toStartOf="@+id/spinner_curso"
         app:layout_constraintTop_toBottomOf="@+id/textView4"
         app:layout_constraintVertical_bias="0.0" />
-
-    <EditText
-        android:id="@+id/editTextEmail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="email"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="448dp" />
 
 </android.support.constraint.ConstraintLayout>
